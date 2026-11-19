@@ -1,0 +1,16 @@
+{
+  "split": "test",
+  "threshold_chosen_on": "valid",
+  "cost_per_false_alarm": 5.0,
+  "threshold": 0.2505988894851035,
+  "precision": 0.5372600065082981,
+  "recall": 0.40625,
+  "false_alarms": 1422,
+  "fraud_caught": 188220.961,
+  "fraud_missed": 421713.375,
+  "false_alarm_cost": 7110.0,
+  "net_saving": 181110.961,
+  "caught_n": 1651,
+  "missed_n": 2413,
+  "false_alarm_rate": 0.012468871663568448
+}

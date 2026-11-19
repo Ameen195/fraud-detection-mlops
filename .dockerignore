@@ -6,5 +6,4 @@ mlruns
 mlflow.db
 eval
 tests
-dashboard
 docs

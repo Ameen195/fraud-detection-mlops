@@ -1,0 +1,17 @@
+name: CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv python install 3.12
+      # CPU-only: skip the CUDA/NCCL wheel xgboost pulls in on Linux (~200 MB, unused here)
+      - run: uv sync --frozen --no-install-package nvidia-nccl-cu13
+      - run: uv run --no-sync ruff check .
+      # offline tests only: the e2e test skips itself without data and the MLflow registry
+      - run: uv run --no-sync pytest -q
