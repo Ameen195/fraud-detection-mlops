@@ -18,6 +18,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 import shap
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from fraudguard.data.load import load_config
@@ -66,9 +67,12 @@ class History:
 
 
 class State:
-    def __init__(self, model, explainer, levels, history, threshold, info, raw_cols=()):
+    def __init__(
+        self, model, explainer, levels, history, threshold, info, raw_cols=(), highest=np.inf
+    ):
         self.model, self.explainer, self.levels = model, explainer, levels
         self.history, self.threshold, self.info = history, threshold, info
+        self.highest = highest  # risk level "highest" (block) from p >= highest; above threshold
         self.names = list(model.feature_name_)
         self.base = [c for c in self.names if c not in ENGINEERED]
         # raw_cols: dataset columns the model ignores (dropped V*) are accepted, not scored
@@ -100,7 +104,12 @@ def load_state(cfg=None) -> State:
         if pa.types.is_dictionary(f.type) and f.name in model.feature_name_
     ]
     levels = categorical_levels(pd.read_parquet(path, columns=cats))
-    threshold = json.loads((res / "threshold.json").read_text("utf-8"))["threshold"]
+    th = json.loads((res / "threshold.json").read_text("utf-8"))
+    if "highest" not in th:
+        raise RuntimeError(
+            "threshold.json has no 'highest': run fraudguard.models.dashboard_export"
+        )
+    threshold, highest = th["threshold"], th["highest"]["threshold"]
     final = res / "final_test.json"
     metrics = json.loads(final.read_text("utf-8")).get("metrics", {}) if final.exists() else {}
     info = {
@@ -108,11 +117,13 @@ def load_state(cfg=None) -> State:
         "version": mv.version,
         "alias": "champion",
         "threshold": threshold,
+        "thresholds": {"elevated": threshold, "highest": highest},
         "test_metrics": metrics,
     }
     history = History(pd.read_parquet(path, columns=HIST_COLS))
     explainer = shap.TreeExplainer(model)
-    return State(model, explainer, levels, history, threshold, info, pq.read_schema(path).names)
+    raw_cols = pq.read_schema(path).names
+    return State(model, explainer, levels, history, threshold, info, raw_cols, highest)
 
 
 class Transaction(BaseModel):
@@ -145,6 +156,8 @@ def row_to_payload(row: pd.Series) -> dict:
 
 
 def create_app(load=load_state) -> FastAPI:
+    cfg = load_config()
+
     @asynccontextmanager
     async def lifespan(app):
         app.state.s = load()
@@ -167,6 +180,11 @@ def create_app(load=load_state) -> FastAPI:
             {
                 "probability": float(pi),
                 "decision": "flag" if pi >= s.threshold else "allow",
+                "risk_level": "highest"
+                if pi >= s.highest
+                else "elevated"
+                if pi >= s.threshold
+                else "normal",
                 "reasons": [
                     {"feature": f, "shap": v} for f, v in top_reasons(s.explainer, X.iloc[[i]])
                 ],
@@ -190,6 +208,16 @@ def create_app(load=load_state) -> FastAPI:
     def model_info():
         return app.state.s.info
 
+    @app.get("/dashboard/samples")
+    def dashboard_samples():
+        path = Path(cfg["paths"]["processed_dir"]) / "dashboard_samples.json"
+        if not path.exists():
+            raise HTTPException(404, "no samples: run python -m fraudguard.models.dashboard_export")
+        return json.loads(path.read_text("utf-8"))
+
+    # mounts after the routes above: /dashboard would otherwise swallow /dashboard/samples
+    app.mount("/dashboard/results", StaticFiles(directory=cfg["paths"]["results_dir"]))
+    app.mount("/dashboard", StaticFiles(directory="dashboard", html=True), name="dashboard")
     return app
 
 

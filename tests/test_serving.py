@@ -69,6 +69,23 @@ def test_score_shape_and_decision(client):
     assert len(body["reasons"]) == 3
 
 
+@pytest.mark.parametrize(
+    "threshold,highest,level", [(0.4, 0.6, "elevated"), (0.4, 0.5, "highest"), (0.6, 0.9, "normal")]
+)
+def test_risk_level(threshold, highest, level):
+    """p = 0.5 always; both boundaries are inclusive (p >= threshold)."""
+    st = State(_Model(), _Explainer(), {}, History(_synthetic()), threshold, {}, highest=highest)
+    with TestClient(create_app(lambda: st)) as c:
+        t = {"TransactionDT": 10**6, "TransactionAmt": 20}
+        assert c.post("/score", json=t).json()["risk_level"] == level
+
+
+def test_dashboard_static(client):
+    assert "<title>" in client.get("/dashboard/").text
+    assert "points" in client.get("/dashboard/results/threshold_curve.json").json()
+    assert client.get("/dashboard/results/nope.json").status_code == 404
+
+
 def test_batch_health_model(client):
     t = {"TransactionDT": 10**6, "TransactionAmt": 20}
     assert len(client.post("/score/batch", json={"transactions": [t, t]}).json()["results"]) == 2

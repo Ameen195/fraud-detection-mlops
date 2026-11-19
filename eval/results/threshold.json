@@ -53,5 +53,20 @@
       "false_alarm_cost": 136950,
       "net_saving": 250436.20400000003
     }
+  },
+  "highest": {
+    "chosen_on": "valid",
+    "max_false_alarm_rate": 0.01,
+    "threshold": 0.2505988894851035,
+    "precision": 0.6459569153918202,
+    "recall": 0.4487096074604207,
+    "false_alarms": 1134,
+    "fraud_caught": 291004.044,
+    "fraud_missed": 505115.8030000001,
+    "false_alarm_cost": 5670.0,
+    "net_saving": 285334.044,
+    "caught_n": 2069,
+    "missed_n": 2542,
+    "false_alarm_rate": 0.009991453518595206
   }
 }

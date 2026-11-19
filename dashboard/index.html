@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FraudGuard Console</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="app.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="rail" aria-label="Primary">
+    <div class="brand" aria-hidden="true">FG</div>
+    <a href="#/queue" data-nav="queue">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+      <span>Queue</span>
+    </a>
+    <a href="#/policy" data-nav="policy">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M19 7h1M4 17h3M13 17h7"/><circle cx="16" cy="7" r="2.5"/><circle cx="10" cy="17" r="2.5"/></svg>
+      <span>Policy</span>
+    </a>
+    <a href="#/model" data-nav="model">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h16"/><path d="M7 16c3-8 7-10 12-10"/></svg>
+      <span>Model</span>
+    </a>
+    <a href="#/monitoring" data-nav="monitoring">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>
+      <span>Monitor</span>
+    </a>
+  </nav>
+  <main id="main" tabindex="-1"></main>
+  <div id="tip" class="tip" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

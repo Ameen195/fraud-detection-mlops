@@ -43,3 +43,6 @@ def test_score_equals_offline_score():
             r = resp.json()
             assert r["probability"] == pytest.approx(p_off, abs=1e-9), i
             assert r["decision"] == ("flag" if p_off >= threshold else "allow")
+            hi = s.highest
+            want = "highest" if p_off >= hi else "elevated" if p_off >= threshold else "normal"
+            assert r["risk_level"] == want

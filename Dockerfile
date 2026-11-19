@@ -7,6 +7,7 @@ RUN uv sync --frozen --no-dev --no-install-project
 COPY src src
 COPY config config
 COPY docker docker
+COPY dashboard dashboard
 RUN uv sync --frozen --no-dev
 ENV PATH="/app/.venv/bin:$PATH"
 # data, registry and results are mounted by docker-compose, not baked into the image
