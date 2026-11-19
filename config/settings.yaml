@@ -24,3 +24,14 @@ mlflow:
   model_name: fraudguard
 business:
   cost_per_false_alarm: 5.0   # assumption, in dataset currency; documented in README
+monitoring:
+  label_delay_days: 30        # assumption: a fraud label (chargeback) is known 30 days after the transaction
+  batch_days: 7               # replay validation + test as weekly "production" batches
+  drift_features: 20          # monitor the top-N features by SHAP importance (shap_global.json)
+  reference_rows: 30000       # random sample of train used as the drift reference
+  drift_share_alarm: 0.3      # alarm when >= this share of monitored features drift
+  score_psi_alarm: 0.1        # alarm when the score distribution PSI vs. the first week >= this
+  retrain_every_weeks: 4      # scheduled retrain, even without a drift alarm
+  eval_window_days: 14        # newest labeled days held out to compare challenger vs champion
+  min_promotion_gain: 0.005   # challenger must beat champion PR-AUC by this on the eval window
+  replay_model_name: fraudguard_replay   # separate registry name; the served `fraudguard` is untouched

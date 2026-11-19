@@ -1,0 +1,496 @@
+{
+  "settings": {
+    "label_delay_days": 30,
+    "batch_days": 7,
+    "drift_features": 20,
+    "reference_rows": 30000,
+    "drift_share_alarm": 0.3,
+    "score_psi_alarm": 0.1,
+    "retrain_every_weeks": 4,
+    "eval_window_days": 14,
+    "min_promotion_gain": 0.005,
+    "replay_model_name": "fraudguard_replay"
+  },
+  "static_model": "fraudguard v2",
+  "replay_start_version": 1,
+  "drift_reference": "30000 random train rows; score PSI vs week 0",
+  "pooled": {
+    "valid": {
+      "static": {
+        "pr_auc": 0.5476510485700867,
+        "recall_at_1pct_fpr": 0.4487096074604207,
+        "recall_at_5pct_fpr": 0.6484493602255476
+      },
+      "retrain": {
+        "pr_auc": 0.5476510485700867,
+        "recall_at_1pct_fpr": 0.4487096074604207,
+        "recall_at_5pct_fpr": 0.6484493602255476
+      },
+      "mean_drift_share": 0.18333333333333332,
+      "alarm_weeks": 0,
+      "weeks": 6
+    },
+    "test": {
+      "static": {
+        "pr_auc": 0.45927023389714233,
+        "recall_at_1pct_fpr": 0.3823818897637795,
+        "recall_at_5pct_fpr": 0.5853838582677166
+      },
+      "retrain": {
+        "pr_auc": 0.4619825790423993,
+        "recall_at_1pct_fpr": 0.3796751968503937,
+        "recall_at_5pct_fpr": 0.5794783464566929
+      },
+      "mean_drift_share": 0.21666666666666667,
+      "alarm_weeks": 0,
+      "weeks": 6
+    }
+  },
+  "weeks": [
+    {
+      "week": 0,
+      "split": "valid",
+      "day_start": 101.2,
+      "day_end": 106.1,
+      "rows": 14759,
+      "drift_share": 0.15,
+      "drifted": [
+        "R_emaildomain",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.0,
+      "alarm": false,
+      "live_champion_version": 1,
+      "labels_arrived_for_weeks": [],
+      "fraud_rate": 0.0353004946134562,
+      "static": {
+        "pr_auc": 0.6287542492408312,
+        "recall_at_1pct_fpr": 0.54510556621881,
+        "recall_at_5pct_fpr": 0.7044145873320538
+      },
+      "retrain": {
+        "pr_auc": 0.6287542492408312,
+        "recall_at_1pct_fpr": 0.54510556621881,
+        "recall_at_5pct_fpr": 0.7044145873320538
+      },
+      "labels_known_at_week": 5
+    },
+    {
+      "week": 1,
+      "split": "valid",
+      "day_start": 106.1,
+      "day_end": 113.1,
+      "rows": 20875,
+      "drift_share": 0.15,
+      "drifted": [
+        "R_emaildomain",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.0023439243909218165,
+      "alarm": false,
+      "live_champion_version": 1,
+      "labels_arrived_for_weeks": [],
+      "fraud_rate": 0.04119760479041916,
+      "static": {
+        "pr_auc": 0.5481417553165515,
+        "recall_at_1pct_fpr": 0.4011627906976744,
+        "recall_at_5pct_fpr": 0.6593023255813953
+      },
+      "retrain": {
+        "pr_auc": 0.5481417553165515,
+        "recall_at_1pct_fpr": 0.4011627906976744,
+        "recall_at_5pct_fpr": 0.6593023255813953
+      },
+      "labels_known_at_week": 6
+    },
+    {
+      "week": 2,
+      "split": "valid",
+      "day_start": 113.1,
+      "day_end": 120.1,
+      "rows": 21101,
+      "drift_share": 0.15,
+      "drifted": [
+        "R_emaildomain",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.011766605885331835,
+      "alarm": false,
+      "live_champion_version": 1,
+      "labels_arrived_for_weeks": [],
+      "fraud_rate": 0.05146675513008862,
+      "static": {
+        "pr_auc": 0.5755265609979703,
+        "recall_at_1pct_fpr": 0.45119705340699817,
+        "recall_at_5pct_fpr": 0.6574585635359116
+      },
+      "retrain": {
+        "pr_auc": 0.5755265609979703,
+        "recall_at_1pct_fpr": 0.45119705340699817,
+        "recall_at_5pct_fpr": 0.6574585635359116
+      },
+      "labels_known_at_week": 7
+    },
+    {
+      "week": 3,
+      "split": "valid",
+      "day_start": 120.1,
+      "day_end": 127.1,
+      "rows": 23618,
+      "drift_share": 0.25,
+      "drifted": [
+        "C9",
+        "D15",
+        "R_emaildomain",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.003994112876345466,
+      "alarm": false,
+      "live_champion_version": 1,
+      "labels_arrived_for_weeks": [],
+      "fraud_rate": 0.03425353543907189,
+      "static": {
+        "pr_auc": 0.5888624719133297,
+        "recall_at_1pct_fpr": 0.5203955500618047,
+        "recall_at_5pct_fpr": 0.6749072929542645
+      },
+      "retrain": {
+        "pr_auc": 0.5888624719133297,
+        "recall_at_1pct_fpr": 0.5203955500618047,
+        "recall_at_5pct_fpr": 0.6749072929542645
+      },
+      "labels_known_at_week": 8
+    },
+    {
+      "week": 4,
+      "split": "valid",
+      "day_start": 127.1,
+      "day_end": 134.1,
+      "rows": 19102,
+      "drift_share": 0.2,
+      "drifted": [
+        "D15",
+        "R_emaildomain",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.0029000016654046217,
+      "alarm": false,
+      "live_champion_version": 1,
+      "labels_arrived_for_weeks": [],
+      "fraud_rate": 0.038215893623704325,
+      "static": {
+        "pr_auc": 0.49367836399789067,
+        "recall_at_1pct_fpr": 0.38493150684931504,
+        "recall_at_5pct_fpr": 0.6164383561643836
+      },
+      "retrain": {
+        "pr_auc": 0.49367836399789067,
+        "recall_at_1pct_fpr": 0.38493150684931504,
+        "recall_at_5pct_fpr": 0.6164383561643836
+      },
+      "labels_known_at_week": 9
+    },
+    {
+      "week": 5,
+      "split": "valid",
+      "day_start": 134.1,
+      "day_end": 141.1,
+      "rows": 18653,
+      "drift_share": 0.2,
+      "drifted": [
+        "D15",
+        "R_emaildomain",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.005033278171280155,
+      "alarm": false,
+      "live_champion_version": 1,
+      "labels_arrived_for_weeks": [
+        0
+      ],
+      "fraud_rate": 0.032434460944620165,
+      "static": {
+        "pr_auc": 0.43559566077289563,
+        "recall_at_1pct_fpr": 0.39173553719008264,
+        "recall_at_5pct_fpr": 0.5735537190082645
+      },
+      "retrain": {
+        "pr_auc": 0.43559566077289563,
+        "recall_at_1pct_fpr": 0.39173553719008264,
+        "recall_at_5pct_fpr": 0.5735537190082645
+      },
+      "labels_known_at_week": 10
+    },
+    {
+      "week": 6,
+      "split": "test",
+      "day_start": 141.1,
+      "day_end": 148.1,
+      "rows": 18562,
+      "drift_share": 0.25,
+      "drifted": [
+        "D15",
+        "R_emaildomain",
+        "card_amt_mean_past",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.0033509037554077846,
+      "alarm": false,
+      "live_champion_version": 1,
+      "labels_arrived_for_weeks": [
+        1
+      ],
+      "fraud_rate": 0.03447904320655102,
+      "static": {
+        "pr_auc": 0.40237120997858555,
+        "recall_at_1pct_fpr": 0.3359375,
+        "recall_at_5pct_fpr": 0.5359375
+      },
+      "retrain": {
+        "pr_auc": 0.40237120997858555,
+        "recall_at_1pct_fpr": 0.3359375,
+        "recall_at_5pct_fpr": 0.5359375
+      },
+      "labels_known_at_week": 11
+    },
+    {
+      "week": 7,
+      "split": "test",
+      "day_start": 148.1,
+      "day_end": 155.1,
+      "rows": 21476,
+      "drift_share": 0.2,
+      "drifted": [
+        "D15",
+        "D2",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.0033006328862270422,
+      "alarm": false,
+      "live_champion_version": 2,
+      "labels_arrived_for_weeks": [
+        2
+      ],
+      "fraud_rate": 0.030871670702179176,
+      "static": {
+        "pr_auc": 0.48999447203438484,
+        "recall_at_1pct_fpr": 0.42684766214177977,
+        "recall_at_5pct_fpr": 0.6078431372549019
+      },
+      "retrain": {
+        "pr_auc": 0.4955141638291722,
+        "recall_at_1pct_fpr": 0.41025641025641024,
+        "recall_at_5pct_fpr": 0.5897435897435898
+      },
+      "labels_known_at_week": null
+    },
+    {
+      "week": 8,
+      "split": "test",
+      "day_start": 155.1,
+      "day_end": 162.1,
+      "rows": 19721,
+      "drift_share": 0.15,
+      "drifted": [
+        "D15",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.0021859995371552553,
+      "alarm": false,
+      "live_champion_version": 2,
+      "labels_arrived_for_weeks": [
+        3
+      ],
+      "fraud_rate": 0.028396125957101566,
+      "static": {
+        "pr_auc": 0.4154752996456554,
+        "recall_at_1pct_fpr": 0.375,
+        "recall_at_5pct_fpr": 0.5285714285714286
+      },
+      "retrain": {
+        "pr_auc": 0.4212821603595822,
+        "recall_at_1pct_fpr": 0.37142857142857144,
+        "recall_at_5pct_fpr": 0.5178571428571429
+      },
+      "labels_known_at_week": null
+    },
+    {
+      "week": 9,
+      "split": "test",
+      "day_start": 162.1,
+      "day_end": 169.1,
+      "rows": 21096,
+      "drift_share": 0.2,
+      "drifted": [
+        "D15",
+        "R_emaildomain",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.00687060228125114,
+      "alarm": false,
+      "live_champion_version": 2,
+      "labels_arrived_for_weeks": [
+        4
+      ],
+      "fraud_rate": 0.03512514220705347,
+      "static": {
+        "pr_auc": 0.445559099419595,
+        "recall_at_1pct_fpr": 0.31713900134952766,
+        "recall_at_5pct_fpr": 0.581646423751687
+      },
+      "retrain": {
+        "pr_auc": 0.4458808529648489,
+        "recall_at_1pct_fpr": 0.3441295546558704,
+        "recall_at_5pct_fpr": 0.5681511470985156
+      },
+      "labels_known_at_week": null
+    },
+    {
+      "week": 10,
+      "split": "test",
+      "day_start": 169.1,
+      "day_end": 176.1,
+      "rows": 19928,
+      "drift_share": 0.25,
+      "drifted": [
+        "D15",
+        "D2",
+        "R_emaildomain",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.005851475392880171,
+      "alarm": false,
+      "live_champion_version": 2,
+      "labels_arrived_for_weeks": [
+        5
+      ],
+      "fraud_rate": 0.03728422320353272,
+      "static": {
+        "pr_auc": 0.5360535481618058,
+        "recall_at_1pct_fpr": 0.44952893674293404,
+        "recall_at_5pct_fpr": 0.6460296096904441
+      },
+      "retrain": {
+        "pr_auc": 0.5260092068090843,
+        "recall_at_1pct_fpr": 0.42934051144010765,
+        "recall_at_5pct_fpr": 0.6271870794078062
+      },
+      "labels_known_at_week": null
+    },
+    {
+      "week": 11,
+      "split": "test",
+      "day_start": 176.1,
+      "day_end": 183.0,
+      "rows": 17325,
+      "drift_share": 0.25,
+      "drifted": [
+        "D15",
+        "D2",
+        "card_amt_mean_past",
+        "freq_DeviceInfo",
+        "freq_P_emaildomain"
+      ],
+      "score_psi": 0.005446700476232477,
+      "alarm": false,
+      "live_champion_version": 3,
+      "labels_arrived_for_weeks": [
+        6
+      ],
+      "fraud_rate": 0.041385281385281386,
+      "static": {
+        "pr_auc": 0.46607777869586803,
+        "recall_at_1pct_fpr": 0.3947001394700139,
+        "recall_at_5pct_fpr": 0.5871687587168759
+      },
+      "retrain": {
+        "pr_auc": 0.4782377163337625,
+        "recall_at_1pct_fpr": 0.3821478382147838,
+        "recall_at_5pct_fpr": 0.603905160390516
+      },
+      "labels_known_at_week": null
+    }
+  ],
+  "retrain_decisions": [
+    {
+      "week": 3,
+      "reason": "schedule",
+      "champion_version": 1,
+      "decision": "skipped",
+      "why": "eval window overlaps champion training data"
+    },
+    {
+      "week": 4,
+      "reason": "schedule",
+      "champion_version": 1,
+      "decision": "skipped",
+      "why": "eval window overlaps champion training data"
+    },
+    {
+      "week": 5,
+      "reason": "schedule",
+      "champion_version": 1,
+      "decision": "skipped",
+      "why": "eval window overlaps champion training data"
+    },
+    {
+      "week": 6,
+      "reason": "schedule",
+      "champion_version": 1,
+      "decision": "promoted",
+      "challenger_version": 2,
+      "train_rows": 362991,
+      "train_end_day": 104.1,
+      "eval_days": [
+        104.1,
+        118.1
+      ],
+      "decided_at_day": 148.1,
+      "champion": {
+        "pr_auc": 0.5940363061141342,
+        "recall_at_1pct_fpr": 0.4608150470219436,
+        "recall_at_5pct_fpr": 0.6677115987460815
+      },
+      "challenger": {
+        "pr_auc": 0.6009238856218765,
+        "recall_at_1pct_fpr": 0.4566353187042842,
+        "recall_at_5pct_fpr": 0.6750261233019854
+      }
+    },
+    {
+      "week": 10,
+      "reason": "schedule",
+      "champion_version": 2,
+      "decision": "promoted",
+      "challenger_version": 3,
+      "train_rows": 448449,
+      "train_end_day": 132.1,
+      "eval_days": [
+        132.1,
+        146.1
+      ],
+      "decided_at_day": 176.1,
+      "champion": {
+        "pr_auc": 0.44274284216629506,
+        "recall_at_1pct_fpr": 0.35746951219512196,
+        "recall_at_5pct_fpr": 0.5754573170731707
+      },
+      "challenger": {
+        "pr_auc": 0.516714228368194,
+        "recall_at_1pct_fpr": 0.43597560975609756,
+        "recall_at_5pct_fpr": 0.6775914634146342
+      }
+    }
+  ]
+}

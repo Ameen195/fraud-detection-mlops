@@ -14,8 +14,10 @@ dependencies = [
     "mlflow>=3.18.0",
     "optuna>=5.1.0",
     "shap>=0.54.1",
-    "fastapi>=0.165.0",
+    "fastapi>=0.139,<0.151",
     "uvicorn>=0.54.0",
+    "evidently>=0.7.23",
+    "prefect>=3.9.3",
 ]
 
 [dependency-groups]

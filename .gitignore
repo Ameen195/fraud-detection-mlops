@@ -12,5 +12,6 @@ mlruns/
 mlflow.db
 mlartifacts/
 prefect/
+eval/drift_reports/
 *.parquet
 FRAUD_PROJECT_SPEC.md
