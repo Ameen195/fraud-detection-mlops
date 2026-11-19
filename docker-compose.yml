@@ -1,0 +1,20 @@
+# Inputs are mounted read-only from the host: mlflow.db + mlruns (registry), data/processed
+# (history for velocity features), eval/results (threshold + metrics).
+x-mounts: &mounts
+  - ./mlflow.db:/app/mlflow.db:ro
+  - ./mlruns:/app/mlruns:ro
+  - ./data/processed:/app/data/processed:ro
+  - ./eval/results:/app/eval/results:ro
+
+services:
+  api:
+    build: .
+    image: fraudguard-api
+    ports: ["8000:8000"]
+    volumes: *mounts
+  mlflow:
+    image: fraudguard-api
+    depends_on: [api]
+    command: ["mlflow", "server", "--backend-store-uri", "sqlite:////tmp/mlflow.db", "--host", "0.0.0.0", "--port", "5000"]
+    ports: ["5000:5000"]
+    volumes: *mounts

@@ -82,3 +82,18 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
         out[f"freq_{col}"] = np.where(df[col].isna(), np.nan, p.hi - p.lo(_ALL))
 
     return out[ENGINEERED]
+
+
+def categorical_levels(df: pd.DataFrame) -> dict[str, list]:
+    """Category levels of every categorical column: the contract between training and serving."""
+    return {
+        c: list(df[c].cat.categories) for c in df if isinstance(df[c].dtype, pd.CategoricalDtype)
+    }
+
+
+def apply_categories(X: pd.DataFrame, levels: dict[str, list]) -> pd.DataFrame:
+    """Cast columns to the training levels, in place. Unseen values become NaN."""
+    for c, cats in levels.items():
+        if c in X:
+            X[c] = pd.Categorical(X[c], categories=cats)
+    return X

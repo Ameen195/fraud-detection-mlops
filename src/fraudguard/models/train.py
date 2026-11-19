@@ -22,7 +22,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 from fraudguard.data.load import load_config
-from fraudguard.features.build import build_features
+from fraudguard.features.build import apply_categories, build_features, categorical_levels
 from fraudguard.models.evaluate import metrics
 
 NOT_FEATURES = ["TransactionID", "TransactionDT", "isFraud", "split"]
@@ -31,6 +31,7 @@ NOT_FEATURES = ["TransactionID", "TransactionDT", "isFraud", "split"]
 def load_xy(cfg):
     df = pd.read_parquet(Path(cfg["paths"]["processed_dir"]) / "full.parquet")
     X = pd.concat([df.drop(columns=NOT_FEATURES), build_features(df)], axis=1)
+    X = apply_categories(X, categorical_levels(X))  # same helper serving uses
     return X, df["isFraud"], df["split"]
 
 
