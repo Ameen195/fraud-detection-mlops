@@ -1,6 +1,7 @@
 """Load, validate, time-split. Writes data/processed/full.parquet (time-sorted, with a `split`
 column) and eval/results/split.json. Features are built on the full sorted data (past rows only)
 and then filtered by `split`, so valid/test rows can see earlier history."""
+
 import json
 from pathlib import Path
 
