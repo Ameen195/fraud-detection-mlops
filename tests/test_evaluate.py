@@ -15,3 +15,13 @@ def test_recall_at_fpr():
     m = metrics(y, p)
     assert m["recall_at_1pct_fpr"] == pytest.approx(1.0)  # 1/100 FP allowed -> all caught
     assert metrics(y, [0.0] * 98 + [0.7, 0.7] + [0.9, 0.8, 0.6, 0.5])["recall_at_1pct_fpr"] == 0.5
+
+
+def test_threshold_cost():
+    from fraudguard.models.final_eval import at_threshold, best_threshold
+
+    y, p, a = [0, 0, 1, 1], [0.1, 0.8, 0.7, 0.9], [10, 10, 100, 5]
+    assert best_threshold(y, p, a, 5) == 0.7  # catching the 100 beats 1 false alarm (5)
+    assert best_threshold(y, p, a, 500) == 0.9  # false alarms too costly: flag only the top
+    r = at_threshold(y, p, a, 0.7, 5)
+    assert (r["false_alarms"], r["fraud_caught"], r["fraud_missed"]) == (1, 105.0, 0.0)

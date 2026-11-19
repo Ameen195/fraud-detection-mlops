@@ -1,0 +1,23 @@
+{
+  "model": "fraudguard@champion v2",
+  "test_rows": 118108,
+  "metrics": {
+    "pr_auc": 0.45927023389714233,
+    "roc_auc": 0.8873789153195326,
+    "recall_at_1pct_fpr": 0.3823818897637795,
+    "recall_at_5pct_fpr": 0.5853838582677166
+  },
+  "at_threshold": {
+    "threshold": 0.019847759182235622,
+    "precision": 0.11822175364610789,
+    "recall": 0.827755905511811,
+    "false_alarms": 25091,
+    "fraud_caught": 504553.854,
+    "fraud_missed": 105380.48200000002,
+    "false_alarm_cost": 125455.0,
+    "net_saving": 379098.854,
+    "false_alarm_rate": 0.22001157448002526
+  },
+  "cost_per_false_alarm": 5.0,
+  "legit_rows": 114044
+}
