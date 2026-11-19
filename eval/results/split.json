@@ -1,0 +1,26 @@
+{
+  "valid_start": 8745798,
+  "test_start": 12192900,
+  "time_column": "TransactionDT",
+  "rows_total": 590540,
+  "splits": {
+    "test": {
+      "rows": 118108,
+      "fraud_rate": 0.03441,
+      "dt_min": 12192900,
+      "dt_max": 15811131
+    },
+    "train": {
+      "rows": 354324,
+      "fraud_rate": 0.03383,
+      "dt_min": 86400,
+      "dt_max": 8745772
+    },
+    "valid": {
+      "rows": 118108,
+      "fraud_rate": 0.03904,
+      "dt_min": 8745798,
+      "dt_max": 12192842
+    }
+  }
+}
